@@ -148,6 +148,14 @@ void follow_line_to_crossing_and_turn(FollowLineType dir)
 		{
 			crossingPassed = TRUE;
 		}
+
+		if(crossingPassed == TRUE)
+		{
+			dir = CLOSED_LOOP_LEFT;
+			crossingPassed = FALSE;
+			crossingStartFound = FALSE;
+		}
+
 		//crossingFound = find_crossing(sensors);
 
 		/* Create virtual sensor values to make the robot turn. */
