@@ -44,6 +44,7 @@ void set_base_speed(int speed)
   targetSpeed = speed;
 }
 
+
 void follow_line(signed int l)
 {
 	int16_t p;
@@ -111,6 +112,7 @@ void follow_line(signed int l)
 	set_m2_speed(right);
 }
 
+
 void follow_line_narrow(uint16_t * sensors)
 {
   // Average over three middle sensors only
@@ -123,12 +125,15 @@ void follow_line_narrow(uint16_t * sensors)
   follow_line(l);
 }
 
-void follow_line_to_crossing_and_turn(FollowLineType dir)
+
+void follow_line_to_crossing_and_turn(FollowLineType next_direction)
 {
 	uint16_t sensors[5];
 	uint16_t l;
 	uint8_t crossingStartFound = FALSE;
 	uint8_t crossingPassed = FALSE;
+	//uint8_t crossings_found;
+	uint8_t direction = CLOSED_LOOP_NARROW;
 
 	while(!crossingPassed)
 	{
@@ -151,15 +156,15 @@ void follow_line_to_crossing_and_turn(FollowLineType dir)
 
 		if(crossingPassed == TRUE)
 		{
-			dir = CLOSED_LOOP_LEFT;
 			crossingPassed = FALSE;
 			crossingStartFound = FALSE;
+			direction = next_direction;
 		}
 
 		//crossingFound = find_crossing(sensors);
 
 		/* Create virtual sensor values to make the robot turn. */
-		switch (dir)
+		switch (direction)
 		{
 		case CLOSED_LOOP_RIGHT:
 			/* Make robot "blind" on the left sensors. */
@@ -186,4 +191,3 @@ void follow_line_to_crossing_and_turn(FollowLineType dir)
 		follow_line(l);
 	}
 }
-

@@ -133,11 +133,16 @@ void run_orienteering(uint8_t stop_at_landmark)
 	/* This is a sample code  */
     line = read_line(values,IR_EMITTERS_ON);
     
-   
+    follow_line_narrow(values);
+
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
 
-   // follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
+    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
+ 
+    follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
 
+
+   // follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
    // follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
 
 
