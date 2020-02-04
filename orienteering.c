@@ -52,7 +52,7 @@ void calibrate_sensors(void)
 		set_m1_speed(LowSpeedLeft);
 		set_m2_speed(-LowSpeedRight);
 		calibrate_line_sensors(IR_EMITTERS_ON);
-		delay_ms(40);
+		delay_ms(0);
 	} 
 	stop();
 	for (i = 0; i<10;i++) 
@@ -60,7 +60,7 @@ void calibrate_sensors(void)
 		set_m1_speed(-LowSpeedLeft);
 		set_m2_speed(LowSpeedRight);
 		calibrate_line_sensors(IR_EMITTERS_ON);
-		delay_ms(40);
+		delay_ms(120);
 	}
 	stop();
 }
