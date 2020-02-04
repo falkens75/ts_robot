@@ -76,6 +76,10 @@ clean:
 program: $(TARGET).hex
 	$(Q)$(AVRDUDE) -p $(AVRDUDE_DEVICE) -c avrisp2 -P $(PORT) -U flash:w:$(TARGET).hex
 
+p: $(TARGET).hex
+	$(Q)$(AVRDUDE) -p $(AVRDUDE_DEVICE) -c avrisp2 -P $(PORT) -U flash:w:$(TARGET).hex
+
+
 # Rules for testing in PC environment	
 test: $(TARGET).aout
 	./$(TARGET).aout
