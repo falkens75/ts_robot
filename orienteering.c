@@ -34,6 +34,7 @@ void initialize()
 /* Speed constants. */
 const int           LowSpeedLeft   = 50;
 const int           LowSpeedRight  = 50;
+const int           cal_delay_time = 40;
 
 /* This function handle the calibration of the line sensors. */
 void calibrate_sensors(void)
@@ -44,7 +45,7 @@ void calibrate_sensors(void)
 		set_m1_speed(-LowSpeedLeft);
 		set_m2_speed(LowSpeedRight);
 		calibrate_line_sensors(IR_EMITTERS_ON);
-		delay_ms(40);
+		delay_ms(cal_delay_time);
 	}
 	stop();
 	for (i = 0; i<20;i++) 
@@ -52,7 +53,7 @@ void calibrate_sensors(void)
 		set_m1_speed(LowSpeedLeft);
 		set_m2_speed(-LowSpeedRight);
 		calibrate_line_sensors(IR_EMITTERS_ON);
-		delay_ms(0);
+		delay_ms(cal_delay_time);
 	} 
 	stop();
 	for (i = 0; i<10;i++) 
@@ -60,7 +61,7 @@ void calibrate_sensors(void)
 		set_m1_speed(-LowSpeedLeft);
 		set_m2_speed(LowSpeedRight);
 		calibrate_line_sensors(IR_EMITTERS_ON);
-		delay_ms(120);
+		delay_ms(cal_delay_time);
 	}
 	stop();
 }
