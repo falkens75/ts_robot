@@ -27,7 +27,7 @@
 #define MAX_COMMAND (250)
 
 int currentSpeed = 50;
-int targetSpeed = 25;
+int targetSpeed = 50;
 static int i = 0;
 const int MAX_DELTA = 3;
 const unsigned long MIN_RAMP_DELAY = 3;
