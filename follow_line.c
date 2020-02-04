@@ -23,8 +23,8 @@
 
 
 /* Speed constants. */
-#define MIN_COMMAND (-250)
-#define MAX_COMMAND (250)
+#define MIN_COMMAND (-150)
+#define MAX_COMMAND (150)
 
 int currentSpeed = 50;
 int targetSpeed = 50;
