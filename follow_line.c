@@ -188,3 +188,72 @@ void follow_line_to_crossing_and_turn(FollowLineType next_direction)
 		follow_line(l);
 	}
 }
+
+
+
+uint8_t drive_forward_act_on_event()
+{
+	uint16_t sensors[5];
+	uint16_t streer_value;
+	uint8_t lineEventPassed = FALSE;
+	uint8_t startBlockinit = FALSE;
+	uint8_t crossingStartFound = FALSE;
+	uint8_t retval = 0;
+	
+	while(!lineEventPassed)
+	{
+		/* Update sensors. */
+		(void)read_line(sensors,IR_EMITTERS_ON);
+
+		/* Search for the crossing on the original sensor values. */
+		if (sensors[LEFT_OUTHER_SENSOR]  > 300 &&
+			sensors[RIGHT_OUTHER_SENSOR] > 300 &&
+			sensors[RIGHT_INNER_SENSOR] > 600 &&
+			sensors[LEFT_INNER_SENSOR ] > 600 &&
+			sensors[MID_SENSOR] > 300)
+		{
+			crossingStartFound = TRUE;
+		}
+
+		if (crossingStartFound &&
+			sensors[LEFT_OUTHER_SENSOR] < 100 &&
+			sensors[RIGHT_OUTHER_SENSOR] < 100)
+		{
+			lineEventPassed = TRUE;
+			retval = 1;
+		}
+
+
+		/* Search for the barcode startblock. */
+		if (sensors[LEFT_OUTHER_SENSOR]  < 100 &&
+			sensors[RIGHT_OUTHER_SENSOR] < 100 &&
+			sensors[RIGHT_INNER_SENSOR] > 300 &&
+			sensors[LEFT_INNER_SENSOR ] > 300 &&
+			sensors[MID_SENSOR] > 300)
+		{
+			startBlockinit = TRUE;
+		}
+
+		if (startBlockinit &&
+			sensors[LEFT_INNER_SENSOR] < 100 &&
+			sensors[RIGHT_INNER_SENSOR] < 100)
+		{
+			lineEventPassed = TRUE;
+			retval = 2;
+		}
+
+		sensors[LEFT_OUTHER_SENSOR] = 0;
+		sensors[RIGHT_OUTHER_SENSOR] = 0;
+
+		// Calculate the Average over three middle sensors only
+		streer_value = ((uint32_t)sensors[0] * 0UL +
+			 (uint32_t)sensors[1] * 1000UL +
+			 (uint32_t)sensors[2] * 2000UL +
+			 (uint32_t)sensors[3] * 3000UL +
+			 (uint32_t)sensors[4] * 4000UL) / (sensors[0] + sensors[1] + sensors[2] + sensors[3] + sensors[4]);
+
+		follow_line(streer_value);
+	}
+	return retval;
+}
+

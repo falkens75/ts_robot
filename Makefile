@@ -41,6 +41,8 @@ OBJ += follow_line.o
 OBJ += debug_print.o
 OBJ += markers.o
 OBJ += utils.o
+OBJ += algo.o
+
 
 # Files for test build
 TEST_OBJ += test.testobj

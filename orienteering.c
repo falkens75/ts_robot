@@ -154,52 +154,49 @@ void run_orienteering(uint8_t stop_at_landmark)
 {
   uint16_t line;
   uint16_t values[5];
-	
+	uint8_t event;
+  uint8_t CountLine = 0;
+  uint8_t Direction = 3;
+  uint8_t bit_block = 0;
+
   while(1)
   {
 	/* This is a sample code  */
     line = read_line(values,IR_EMITTERS_ON);
     
-    follow_line_narrow(values);
+    //follow_line_narrow(values);
 
   //follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW); 
 
-    char CountLine;
-    char Direction;
-    CountLine = 0;
-    Direction = 3;
+  event = drive_forward_act_on_event();
 
-
-
-    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-    CountLine ++;
-    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-    CountLine ++;
-    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-    CountLine ++;
+  if(event == 1)
+    CountLine++;
     
+  if(event == 2) {
+    bit_block++;
+     play_beep();
+  }
 
-    clear();
-    lcd_goto_xy(0,1);
-    printf("%d",CountLine);
-
+   if(CountLine == 2)
+   {
+     CountLine = 0;
     stop();
-    while(1);
+    turn('L');
+   } 
     
-   
 
-  
-
+     
 /*
-    clear();
+  clear();
       lcd_goto_xy(0,1);
     print("2");
 */
 
-
+/*
     stop();
     while(1);
-    
+  */  
    // follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
    // follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
 
