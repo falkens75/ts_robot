@@ -5,7 +5,7 @@
 
 #define x_size 5
 #define y_size 5
-#define NODE_SIZE 21 // (x_size*2 + y_size*2)
+#define NODE_SIZE 21 // (x_size*2 + y_size*2) +1
 
 struct node_coordinate
 {
@@ -153,6 +153,7 @@ int main()
     printf(", pass_line %d, %d\n", x1, y1);
 
     init(nodes);
+    
 
     uint8_t counter;
     for(counter=1; counter < NODE_SIZE; counter++ )

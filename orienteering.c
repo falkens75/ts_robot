@@ -135,13 +135,30 @@ void run_orienteering(uint8_t stop_at_landmark)
     
     follow_line_narrow(values);
 
+  follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT); 
+
+  /*
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
 
+    clear();
+    lcd_goto_xy(0,0);
+    print("1");
+
+
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
- 
-    follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
+
+    clear();
+    lcd_goto_xy(0,1);
+    print("2");
+
+    stop();
+    while(1)
+    {
 
 
+    }
+*/
+    
    // follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
    // follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
 
