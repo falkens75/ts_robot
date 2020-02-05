@@ -32,9 +32,9 @@ void initialize()
 }
 
 /* Speed constants. */
-const int           LowSpeedLeft   = 50;
-const int           LowSpeedRight  = 50;
-const int           cal_delay_time = 40;
+const int           LowSpeedLeft   = 40;
+const int           LowSpeedRight  = 40;
+const int           cal_delay_time = 30;
 
 /* This function handle the calibration of the line sensors. */
 void calibrate_sensors(void)
@@ -129,13 +129,13 @@ void turn(char dir)
         {
         case 'L':
                 // Turn left.
-                set_motors(-80,80);
-                delay_ms(200);
+                set_motors(-40,40);
+                delay_ms(400);
                 break;
         case 'R':
                 // Turn right.
-                set_motors(80,-80);
-                delay_ms(200);
+                set_motors(40,-40);
+                delay_ms(400);
                 break;
         case 'B':
                 // Turn around.
@@ -170,11 +170,15 @@ void run_orienteering(uint8_t stop_at_landmark)
 
   event = drive_forward_act_on_event();
 
-  if(event == 1)
+  if(event == crossing) {
     CountLine++;
-    
-  if(event == 2) {
+    set_base_speed(50);
+  }
+
+
+  if(event == bitblock) {
     bit_block++;
+     set_base_speed(25);
      play_beep();
   }
 

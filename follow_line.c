@@ -198,7 +198,7 @@ uint8_t drive_forward_act_on_event()
 	uint8_t lineEventPassed = FALSE;
 	uint8_t startBlockinit = FALSE;
 	uint8_t crossingStartFound = FALSE;
-	uint8_t retval = 0;
+	enum event_result retval = nothing;
 	
 	while(!lineEventPassed)
 	{
@@ -220,7 +220,7 @@ uint8_t drive_forward_act_on_event()
 			sensors[RIGHT_OUTHER_SENSOR] < 100)
 		{
 			lineEventPassed = TRUE;
-			retval = 1;
+			retval = crossing;
 		}
 
 
@@ -239,7 +239,7 @@ uint8_t drive_forward_act_on_event()
 			sensors[RIGHT_INNER_SENSOR] < 100)
 		{
 			lineEventPassed = TRUE;
-			retval = 2;
+			retval = bitblock;
 		}
 
 		sensors[LEFT_OUTHER_SENSOR] = 0;

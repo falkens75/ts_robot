@@ -12,6 +12,7 @@ typedef enum
 	CLOSED_LOOP_NARROW,
 }FollowLineType;
 
+enum event_result {nothing, crossing, bitblock};
 
 void set_base_speed(int speed);
 void clear_integral(void);
