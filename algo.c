@@ -2,20 +2,17 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include "algo.h"
+
 
 #define x_size 5
 #define y_size 5
 #define NODE_SIZE 21 // (x_size*2 + y_size*2) +1
 
-struct node_coordinate
-{
-    uint8_t xk;
-    uint8_t yk;
-};
+
 
 struct node_coordinate nodes[NODE_SIZE];
 
-enum dir {_low=2, _east=3, _south=4, _west=5, _north=6, _high=7, _higher=8};
 
 /*
 const uint8_t east = 3;
