@@ -50,6 +50,19 @@ uint8_t turn_180 (enum dir direction)
 }
 
 
+void pass_line(uint8_t direction, uint8_t * x1, uint8_t * y1)
+{
+    switch (direction) 
+    {
+        case _east :  *y1 = *y1+1; break;
+        case _south : *x1 = *x1+1; break;
+        case _west :  *y1 = *y1-1; break;
+        case _north : *x1 = *x1-1; break;
+        default : break;
+    }
+
+    return;
+}
 
 
 #ifdef MAIN
@@ -69,12 +82,14 @@ int main()
     printf("turn_180 %d, %d\n", a, c);
 
     a=_north;
-    c = turn_180(a);
-    printf("turn_180 %d, %d\n", a, c);
+    uint8_t x1 = 1;
+    uint8_t y1 = 2;
+    printf(" %d, %d, ", x1, y1);
+    pass_line(_north, &x1, &y1);
+    printf(", pass_line %d, %d\n", x1, y1);
 
 
 
-      
     return 0;
 }
 
