@@ -169,24 +169,26 @@ void run_orienteering(uint8_t stop_at_landmark)
     CountLine = 0;
     Direction = 3;
 
-while(1)
-{
+
+
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
     CountLine ++;
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
     CountLine ++;
-    turn('L');
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
     CountLine ++;
-    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-    CountLine ++;
-    turn('L');
     
+
     clear();
     lcd_goto_xy(0,1);
     printf("%d",CountLine);
 
-  }
+    stop();
+    while(1);
+    
+   
+
+  
 
 /*
     clear();
