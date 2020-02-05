@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define x_size 4
-#define y_size 3
-#define NODE_SIZE 15 // (x_size*2 + y_size*2)
+#define x_size 5
+#define y_size 5
+#define NODE_SIZE 21 // (x_size*2 + y_size*2)
 
 struct node_coordinate
 {
@@ -43,6 +43,7 @@ uint8_t turn_right (enum dir direction)
     return direction;
 }
 
+
 uint8_t turn_180 (enum dir direction)
 {
     direction = direction + 2;
@@ -77,13 +78,6 @@ void pass_line(uint8_t direction, uint8_t * x1, uint8_t * y1)
             break;
         }
     return;
-}
-
-
-void handle_nodes ()
-{
-
-
 }
 
 
