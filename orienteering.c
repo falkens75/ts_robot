@@ -123,6 +123,33 @@ void startup(void)
 // -----------------------------------------------------------------
 // -----------------------------------------------------------------
 
+void turn(char dir)
+{
+        switch(dir)
+        {
+        case 'L':
+                // Turn left.
+                set_motors(-80,80);
+                delay_ms(200);
+                break;
+        case 'R':
+                // Turn right.
+                set_motors(80,-80);
+                delay_ms(200);
+                break;
+        case 'B':
+                // Turn around.
+                set_motors(80,-80);
+                delay_ms(400);
+                break;
+        case 'S':
+                // Don't do anything!
+                break;
+        }
+}
+
+
+
 void run_orienteering(uint8_t stop_at_landmark)
 {
   uint16_t line;
@@ -137,17 +164,36 @@ void run_orienteering(uint8_t stop_at_landmark)
 
   //follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW); 
 
+    char CountLine;
+    char Direction;
+    CountLine = 0;
+    Direction = 3;
+
+while(1)
+{
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-
-    clear();
-    lcd_goto_xy(0,0);
-    print("1");
-
+    CountLine ++;
     follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
-
+    CountLine ++;
+    turn('L');
+    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
+    CountLine ++;
+    follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
+    CountLine ++;
+    turn('L');
+    
     clear();
     lcd_goto_xy(0,1);
+    printf("%d",CountLine);
+
+  }
+
+/*
+    clear();
+      lcd_goto_xy(0,1);
     print("2");
+*/
+
 
     stop();
     while(1);
