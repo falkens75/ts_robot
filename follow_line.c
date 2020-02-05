@@ -152,12 +152,6 @@ void follow_line_to_crossing_and_turn(FollowLineType next_direction)
 			sensors[RIGHT_OUTHER_SENSOR] < 100)
 		{
 			crossingPassed = TRUE;
-		}
-
-		if(crossingPassed == TRUE)
-		{
-			crossingPassed = FALSE;
-			crossingStartFound = FALSE;
 			direction = next_direction;
 		}
 
