@@ -108,6 +108,7 @@ void init(struct node_coordinate nodes[])
         init_y++;
     }
     //Go south
+    init_x = 1;
     for(counter = y_size+1; counter < y_size+x_size+1; counter++)
     {
         nodes[counter].xk = init_x;
@@ -115,6 +116,7 @@ void init(struct node_coordinate nodes[])
         init_x++;
     }
     //Go west
+    init_y--;
     for(counter = y_size+x_size+1; counter < y_size+x_size+y_size+1; counter++)
     {
         nodes[counter].xk = init_x;
@@ -122,6 +124,7 @@ void init(struct node_coordinate nodes[])
         init_y--;
     }
     //Go north
+    init_x--;
     for(counter = y_size+x_size+y_size+1; counter <y_size+x_size+y_size+x_size+1; counter++)
     {
         nodes[counter].xk = init_x;
