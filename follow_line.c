@@ -205,6 +205,12 @@ uint8_t drive_forward_act_on_event()
 		/* Update sensors. */
 		(void)read_line(sensors,IR_EMITTERS_ON);
 
+		if(sensors[0]+sensors[1]+sensors[2]+sensors[3]+sensors[4] < 100 )
+		{
+			lineEventPassed = TRUE;
+			retval = offsite;
+		}
+
 		/* Search for the crossing on the original sensor values. */
 		if (sensors[LEFT_OUTHER_SENSOR]  > 300 &&
 			sensors[RIGHT_OUTHER_SENSOR] > 300 &&

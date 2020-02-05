@@ -182,11 +182,21 @@ void run_orienteering(uint8_t stop_at_landmark)
      play_beep();
   }
 
+  if(event == offsite)
+  {
+    stop();
+    turn('B');
+  }
+
    if(CountLine == 2)
    {
      CountLine = 0;
+    delay_ms(100);
     stop();
+    delay_ms(50);
     turn('L');
+    delay_ms(50);
+
    } 
     
 
