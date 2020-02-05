@@ -142,7 +142,10 @@ void follow_line_to_crossing_and_turn(FollowLineType next_direction)
 
 		/* Search for the crossing on the original sensor values. */
 		if (sensors[LEFT_OUTHER_SENSOR]  > 300 &&
-			sensors[RIGHT_OUTHER_SENSOR] > 300)
+			sensors[RIGHT_OUTHER_SENSOR] > 300 &&
+			sensors[RIGHT_INNER_SENSOR] > 600 &&
+			sensors[LEFT_INNER_SENSOR ] > 600 &&
+			sensors[MID_SENSOR] > 300)
 		{
 			crossingStartFound = TRUE;
 		}
