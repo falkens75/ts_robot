@@ -1,8 +1,13 @@
+// standard test: gcc Edvard5.c -o edvard -Wall -pedantic
 // This function show the path from one position to the next.
 
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include <stdlib.h>
+
+#include "algo.h"
+
 // #include <orienteering.h>
 
 
@@ -35,7 +40,7 @@ Ex 4x3 = 4 Columns (y), 3 Rows (x)
 
 char Col_Target, Col_Actual, Col_Dist, Row_Dist, Row_Target, Row_Actual, Node_Actual, Node_Target, Direction, Distance, Col_Max, Row_Max;
 
-main ()
+int main ()
 {
 Node_Actual = 4;
 Node_Target = 9;
@@ -51,21 +56,21 @@ Row_Dist = abs(Row_Target-Row_Actual);
 if (Col_Dist > 0)		//1-3 = -2 (W) resp 1-3 = -2 (W) och 4-0 = 4 (E)
 // Här kollas i vilken riktning kolumnerna ska ändras, West eller East?
 {
-	Direction = 3; //Go east	
+	Direction = _east; //Go east	
 }
 else
 {
-	Direction = 5; //Go west
+	Direction = _west; //Go west
 }                       
 	
 
 if (Row_Dist > 0 )		//4-0 = 4 (S) resp 0-4 = -4 (N) och 0-2 = -2 (N)
 {
-	Direction = 4; //Go south
+	Direction = _south; //Go south
 }
 else
 {
-	Direction = 6; //Go north
+	Direction = _north; //Go north
 }
 
 // Här nedan fattas det lite. 
@@ -74,11 +79,11 @@ else
 // Kanske behövs Direction_Col och Direction_Row istället för bara Direction som använts ovan
 
 // Hitta första riktning
-if (Col_Actual == 0 || Col_Actual=Col_Max+1)  	//Första och sista kolumn
+if (Col_Actual == 0 || Col_Actual==Col_Max+1)  	//Första och sista kolumn
 {
 	//Gå först East/West
 }
-if (Row_Actual == 0 || Row_Actual = Row_Max+1) 	//Första och sista rad. Else-sats istället?
+if (Row_Actual == 0 || Row_Actual == Row_Max+1) 	//Första och sista rad. Else-sats istället?
 {
 	//Gå först South/North
 }
@@ -91,7 +96,7 @@ if (Col_Dist == 0) //Specialfall om det är till och från samma kolumn. T ex Fr
 {
 	if (Col_Actual == 0) //Västra kolumn. Gå öst, syd/nord, sedan väst, Col_Actual = 12
 	{
-		Direction = 3; 		//East 
+		Direction = _east; 		//East 
 		Distance = 1;
 		if (Row_Dist > 0) 	//North  T ex 12 till 14
 			{
@@ -131,7 +136,7 @@ if (Col_Dist == 0) //Specialfall om det är till och från samma kolumn. T ex Fr
 	{
 		if(Row_Actual==0)
 		{
-			Direction = 4; //South Gå tills ny kod hittas eller banan tar slut
+			Direction = _south; //South Gå tills ny kod hittas eller banan tar slut
 		}
 	}
 }
@@ -144,7 +149,7 @@ if (Row_Dist == 0) //Special om det är till och från samma rad
 {
 	if (Row_Actual == 0) //Övre raden. Gå ner, öst/väst, upp
 	{
-		Direction = 4; 		//South 
+		Direction = _south; 		//South 
 		Distance = 1;
 		if (Col_Dist > 0) 	//East
 		{
@@ -163,7 +168,7 @@ if (Row_Dist == 0) //Special om det är till och från samma rad
 	}	
 	else //undre raden. Gå upp, öst/väst, ner
 	{
-		Direction = 6; 		//North 
+		Direction = _north; 		//North 
 		Distance = 1;
 		if (Col_Dist > 0) 	//West
 		{
