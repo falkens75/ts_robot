@@ -231,17 +231,17 @@ uint8_t drive_forward_act_on_event()
 
 
 		/* Search for the barcode startblock. */
-		if (sensors[LEFT_OUTHER_SENSOR]  < 300 &&
-			sensors[RIGHT_OUTHER_SENSOR] < 300 &&
+		if (sensors[LEFT_OUTHER_SENSOR]  < 150 &&
+			sensors[RIGHT_OUTHER_SENSOR] < 150 &&
 			sensors[RIGHT_INNER_SENSOR] > 500 &&
-			sensors[LEFT_INNER_SENSOR ] > 500 &
+			sensors[LEFT_INNER_SENSOR ] > 500 &&
 			sensors[MID_SENSOR] > 500)
 		{
 			startBlockinit = TRUE;
 		}
 
 		if (startBlockinit &&
-			((sensors[LEFT_INNER_SENSOR] + sensors[RIGHT_INNER_SENSOR]) < 400) )
+			((sensors[LEFT_INNER_SENSOR] + sensors[RIGHT_INNER_SENSOR]) < 600) )
 		{
 			lineEventPassed = TRUE;
 			retval = bitblock;
