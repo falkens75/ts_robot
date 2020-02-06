@@ -165,6 +165,10 @@ void run_orienteering(uint8_t stop_at_landmark)
   left_led(0);
   right_led(0);  
   
+
+  //Start läge
+  //start = Y_SIZE+1;
+
   while(1)
   {
 	/* This is a sample code  */
@@ -174,17 +178,15 @@ void run_orienteering(uint8_t stop_at_landmark)
 
   if(event == crossing) {
     CountLine++;
-    //set_base_speed(50);
+    set_base_speed(50);
    
   }
-
 
   if(event == bitblock) {
     bit_block++;
      set_base_speed(25);
      play_beep();
   }
-
 
     clear();
     lcd_goto_xy(0,0);
