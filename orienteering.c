@@ -159,6 +159,9 @@ void run_orienteering(uint8_t stop_at_landmark) //huvud loop
   uint8_t Direction = 3;
   uint8_t bit_block = 0;
 
+  left_led(0);
+  right_led(0);  
+  
   while(1)
   {
 	/* This is a sample code  */
