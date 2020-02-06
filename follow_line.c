@@ -234,8 +234,8 @@ uint8_t drive_forward_act_on_event()
 		if (sensors[LEFT_OUTHER_SENSOR]  < 100 &&
 			sensors[RIGHT_OUTHER_SENSOR] < 100 &&
 			sensors[RIGHT_INNER_SENSOR] > 300 &&
-			sensors[LEFT_INNER_SENSOR ] > 300 &&
-			sensors[MID_SENSOR] > 300)
+			sensors[LEFT_INNER_SENSOR ] > 300 &
+			sensors[MID_SENSOR] > 500)
 		{
 			startBlockinit = TRUE;
 		}

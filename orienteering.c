@@ -150,7 +150,7 @@ void turn(char dir)
 
 
 
-void run_orienteering(uint8_t stop_at_landmark)
+void run_orienteering(uint8_t stop_at_landmark) //huvud loop
 {
   uint16_t line;
   uint16_t values[5];
@@ -164,15 +164,12 @@ void run_orienteering(uint8_t stop_at_landmark)
 	/* This is a sample code  */
     line = read_line(values,IR_EMITTERS_ON);
     
-    //follow_line_narrow(values);
-
-  //follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW); 
-
   event = drive_forward_act_on_event();
 
   if(event == crossing) {
     CountLine++;
-    set_base_speed(50);
+    //set_base_speed(50);
+   
   }
 
 
@@ -182,13 +179,24 @@ void run_orienteering(uint8_t stop_at_landmark)
      play_beep();
   }
 
-  if(event == offsite)
-  {
-    stop();
-    turn('B');
-  }
 
-   if(CountLine == 2)
+    clear();
+    lcd_goto_xy(0,0);
+    printf("CL: %d",CountLine); 
+    lcd_goto_xy(0,1);
+    printf("BB: %d",bit_block); 
+    
+
+
+
+//  if(event == offsite)
+//  {
+ //   stop();
+  //  turn('B');
+ // }
+
+
+   if(CountLine == 50)
    {
      CountLine = 0;
     delay_ms(100);
