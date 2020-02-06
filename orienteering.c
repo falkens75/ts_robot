@@ -19,6 +19,7 @@
 #include "debug_print.h"
 #include "utils.h"
 #include "nodesLog.h"
+#include "algo.h"
 
 // Initializes the 3pi, displays a welcome message, calibrates, and
 // plays the initial music.
@@ -148,15 +149,17 @@ void turn(char dir)
         }
 }
 
+//***********************************************
+//***********************************************
+//***********************************************
 
-
-void run_orienteering(uint8_t stop_at_landmark) //huvud loop
+void run_orienteering(uint8_t stop_at_landmark) 
 {
   uint16_t line;
   uint16_t values[5];
 	uint8_t event;
   uint8_t CountLine = 0;
-  uint8_t Direction = 3;
+  uint8_t Direction = _east;
   uint8_t bit_block = 0;
 
   left_led(0);
@@ -192,13 +195,6 @@ void run_orienteering(uint8_t stop_at_landmark) //huvud loop
 
 
 
-//  if(event == offsite)
-//  {
- //   stop();
-  //  turn('B');
- // }
-
-
    if(CountLine == 50)
    {
      CountLine = 0;
@@ -211,19 +207,11 @@ void run_orienteering(uint8_t stop_at_landmark) //huvud loop
    } 
     
 
-     
-/*
-  clear();
-      lcd_goto_xy(0,1);
-    print("2");
-*/
-
-/*
-    stop();
-    while(1);
-  */  
-   // follow_line_to_crossing_and_turn(CLOSED_LOOP_LEFT);
-   // follow_line_to_crossing_and_turn(CLOSED_LOOP_NARROW);
+//  if(event == offsite)
+//  {
+//   stop();
+//  turn('B');
+// }
 
 
     //follow_line(line);

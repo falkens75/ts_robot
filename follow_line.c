@@ -215,13 +215,22 @@ uint8_t drive_forward_act_on_event()
 //			retval = offsite;
 //		}
 
+		uint16_t sensorsum = (sensors[LEFT_OUTHER_SENSOR] + 
+			 sensors[RIGHT_OUTHER_SENSOR] + 
+			 sensors[RIGHT_INNER_SENSOR] + 
+			 sensors[LEFT_INNER_SENSOR ]);
+		
+		uint16_t sensor_sum_outer = (sensors[LEFT_OUTHER_SENSOR] + 
+			 						sensors[RIGHT_OUTHER_SENSOR]);
+
+		uint16_t sensor_sum_inner = (sensors[RIGHT_INNER_SENSOR] + 
+									sensors[LEFT_INNER_SENSOR ]);
+
+
 		/* Search for the crossing on the original sensor values. */
 		if(look_for_crossing)
 		{
-		if (sensors[LEFT_OUTHER_SENSOR]  > 300 &&
-			sensors[RIGHT_OUTHER_SENSOR] > 300 &&
-			sensors[RIGHT_INNER_SENSOR] > 600 &&
-			sensors[LEFT_INNER_SENSOR ] > 600)
+		if (sensor_sum_outer > 1700)
 		{
 			crossingStartFound = TRUE;
 			look_for_block = FALSE;
@@ -239,11 +248,7 @@ uint8_t drive_forward_act_on_event()
 		if(look_for_block)
 		{
 		/* Search for the barcode startblock. */
-		if (sensors[LEFT_OUTHER_SENSOR]  < 150 &&
-			sensors[RIGHT_OUTHER_SENSOR] < 150 &&
-			sensors[RIGHT_INNER_SENSOR] > 500 &&
-			sensors[LEFT_INNER_SENSOR ] > 500 &&
-			sensors[MID_SENSOR] > 500)
+		if (sensor_sum_inner > 1700)
 		{
 			startBlockinit = TRUE;
 			look_for_crossing = FALSE;
