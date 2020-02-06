@@ -3,3 +3,5 @@
 *.testobj
 *.d
 *.aout
+*.elf
+*.hex
