@@ -214,20 +214,37 @@ uint8_t drive_forward_act_on_event()
 //			lineEventPassed = TRUE;
 //			retval = offsite;
 //		}
-
+/*
 		uint16_t sensorsum = (sensors[LEFT_OUTHER_SENSOR] + 
 			 sensors[RIGHT_OUTHER_SENSOR] + 
 			 sensors[RIGHT_INNER_SENSOR] + 
 			 sensors[LEFT_INNER_SENSOR ]);
-		
+*/		
 		uint16_t sensor_sum_outer = (sensors[LEFT_OUTHER_SENSOR] + 
 			 						sensors[RIGHT_OUTHER_SENSOR]);
 
 		uint16_t sensor_sum_inner = (sensors[RIGHT_INNER_SENSOR] + 
 									sensors[LEFT_INNER_SENSOR ]);
 
+		if (sensor_sum_outer > 1000)
+		{
+			lineEventPassed = TRUE;
+			retval = crossing;
+		}
+
+		if ((sensor_sum_outer > 100) && (sensor_sum_outer <  200 ))
+		{
+			lineEventPassed = TRUE;
+			retval = bitblock;
+
+		}
+
+if(0)
+{
+
 
 		/* Search for the crossing on the original sensor values. */
+
 		if(look_for_crossing)
 		{
 		if (sensor_sum_outer > 1700)
@@ -261,6 +278,8 @@ uint8_t drive_forward_act_on_event()
 			retval = bitblock;
 		}
 		}
+
+}
 		sensors[LEFT_OUTHER_SENSOR] = 0;
 		sensors[RIGHT_OUTHER_SENSOR] = 0;
 
