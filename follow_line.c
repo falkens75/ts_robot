@@ -200,7 +200,10 @@ uint8_t drive_forward_act_on_event()
 	uint8_t crossingStartFound = FALSE;
 	uint8_t look_for_crossing = TRUE;
 	uint8_t look_for_block = TRUE;
-	
+	uint8_t in_crossing = FALSE;
+	uint8_t not_bitblock = FALSE;
+
+
 	enum event_result retval = nothing;
 	
 	while(!lineEventPassed)
@@ -226,6 +229,36 @@ uint8_t drive_forward_act_on_event()
 		uint16_t sensor_sum_inner = (sensors[RIGHT_INNER_SENSOR] + 
 									sensors[LEFT_INNER_SENSOR ]);
 
+		if (sensor_sum_inner > 1800)
+			{
+				// sett något. 
+				crossingStartFound = TRUE;
+			}
+
+		if ( crossingStartFound && (sensor_sum_outer) > 1700 )
+		{
+			in_crossing = TRUE;
+			not_bitblock = TRUE;
+		}
+
+		if (in_crossing && (sensor_sum_inner) < 500)
+		{
+			retval = crossing;
+			lineEventPassed = TRUE;
+		}
+
+
+		if ( !not_bitblock && crossingStartFound && ((sensor_sum_inner) < 500))
+		{
+			retval = bitblock;
+			lineEventPassed = TRUE;
+		}
+
+
+if(0)
+
+{
+
 		if (sensor_sum_outer > 1000)
 		{
 			lineEventPassed = TRUE;
@@ -238,9 +271,6 @@ uint8_t drive_forward_act_on_event()
 			retval = bitblock;
 
 		}
-
-if(0)
-{
 
 
 		/* Search for the crossing on the original sensor values. */
