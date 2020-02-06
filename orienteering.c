@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "orienteering.h"
 #include "debug_print.h"
 #include "utils.h"
@@ -149,6 +150,68 @@ void turn(char dir)
         }
 }
 
+
+//***********************************************
+//***********************************************
+//***********************************************
+
+uint8_t read_binary_code()
+{
+  uint8_t line;
+  uint16_t sensors[5]; 
+  uint8_t counter = 0;
+  uint8_t values[8] = {0,0,0,0,0,0,0,0};
+  uint8_t not_read = TRUE;
+  uint8_t run = TRUE;
+  uint8_t retval = 0;
+  while(run)
+  {
+    read_line(sensors,IR_EMITTERS_ON);
+
+    if((sensors[LEFT_OUTHER_SENSOR] > 500) && not_read)
+    {
+      values[counter] = 1;
+      not_read = FALSE; 
+    }
+
+    if((sensors[RIGHT_OUTHER_SENSOR] > 500) && (not_read))
+    {
+      values[counter] = 0;
+      not_read = FALSE; 
+    }
+
+  if(!not_read )
+  { 
+    if((values[counter] == 1) && (sensors[LEFT_OUTHER_SENSOR] < 100)) 
+    {
+      not_read = TRUE;
+      counter++;
+    }
+  else if((values[counter] == 0) && (sensors[RIGHT_OUTHER_SENSOR] < 100))
+    {
+      not_read = TRUE;
+      counter++;
+    }
+
+    if((sensors[LEFT_INNER_SENSOR] > 700 ) && (sensors[RIGHT_INNER_SENSOR] > 700 ) )
+    {
+      run = FALSE;
+    }
+    if (counter > 8)
+      run = FALSE;
+    } 
+  
+follow_line_narrow(sensors);
+     } //while
+
+  //for (counter=0; counter < 8; counter++)
+  //  retval = retval + (values[counter] * (uint8_t) pow(counter, 2));
+
+  return retval;
+}
+
+
+
 //***********************************************
 //***********************************************
 //***********************************************
@@ -161,6 +224,7 @@ void run_orienteering(uint8_t stop_at_landmark)
   uint8_t CountLine = 0;
   uint8_t Direction = _east;
   uint8_t bit_block = 0;
+  uint8_t Node_Target = Y_SIZE+1;
 
   left_led(0);
   right_led(0);  
@@ -186,6 +250,10 @@ void run_orienteering(uint8_t stop_at_landmark)
     bit_block++;
      set_base_speed(25);
      play_beep();
+      Node_Target = read_binary_code();
+    clear();
+    lcd_goto_xy(0,0);
+    printf("NT: %d",Node_Target);
   }
 
     clear();
@@ -194,7 +262,6 @@ void run_orienteering(uint8_t stop_at_landmark)
     lcd_goto_xy(0,1);
     printf("BB: %d",bit_block); 
     
-
 
 
    if(CountLine == 50)

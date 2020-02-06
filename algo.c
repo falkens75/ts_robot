@@ -168,7 +168,6 @@ y_Target = nodes[Node_Target].yk;
 x_Target = nodes[Node_Target].xk;
 
 
-
 y_Dist= y_Target-y_Actual;
 x_Dist = x_Target-x_Actual;
 
