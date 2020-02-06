@@ -198,6 +198,9 @@ uint8_t drive_forward_act_on_event()
 	uint8_t lineEventPassed = FALSE;
 	uint8_t startBlockinit = FALSE;
 	uint8_t crossingStartFound = FALSE;
+	uint8_t look_for_crossing = TRUE;
+	uint8_t look_for_block = TRUE;
+	
 	enum event_result retval = nothing;
 	
 	while(!lineEventPassed)
@@ -205,20 +208,23 @@ uint8_t drive_forward_act_on_event()
 		/* Update sensors. */
 		(void)read_line(sensors,IR_EMITTERS_ON);
 
-		if(sensors[0]+sensors[1]+sensors[2]+sensors[3]+sensors[4] < 100 )
-		{
-			lineEventPassed = TRUE;
-			retval = offsite;
-		}
+
+//		if(sensors[0]+sensors[1]+sensors[2]+sensors[3]+sensors[4] < 100 )
+//		{
+//			lineEventPassed = TRUE;
+//			retval = offsite;
+//		}
 
 		/* Search for the crossing on the original sensor values. */
+		if(look_for_crossing)
+		{
 		if (sensors[LEFT_OUTHER_SENSOR]  > 300 &&
 			sensors[RIGHT_OUTHER_SENSOR] > 300 &&
 			sensors[RIGHT_INNER_SENSOR] > 600 &&
-			sensors[LEFT_INNER_SENSOR ] > 600 &&
-			sensors[MID_SENSOR] > 300)
+			sensors[LEFT_INNER_SENSOR ] > 600)
 		{
 			crossingStartFound = TRUE;
+			look_for_block = FALSE;
 		}
 
 		if (crossingStartFound &&
@@ -228,8 +234,10 @@ uint8_t drive_forward_act_on_event()
 			lineEventPassed = TRUE;
 			retval = crossing;
 		}
+		}
 
-
+		if(look_for_block)
+		{
 		/* Search for the barcode startblock. */
 		if (sensors[LEFT_OUTHER_SENSOR]  < 150 &&
 			sensors[RIGHT_OUTHER_SENSOR] < 150 &&
@@ -238,6 +246,7 @@ uint8_t drive_forward_act_on_event()
 			sensors[MID_SENSOR] > 500)
 		{
 			startBlockinit = TRUE;
+			look_for_crossing = FALSE;
 		}
 
 		if (startBlockinit &&
@@ -246,7 +255,7 @@ uint8_t drive_forward_act_on_event()
 			lineEventPassed = TRUE;
 			retval = bitblock;
 		}
-
+		}
 		sensors[LEFT_OUTHER_SENSOR] = 0;
 		sensors[RIGHT_OUTHER_SENSOR] = 0;
 
