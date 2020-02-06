@@ -199,7 +199,7 @@ uint8_t read_binary_code()
       run = FALSE;
     }
 
-    if (counter > 8)
+    if (counter > 7)
       run = FALSE;
     } 
   
