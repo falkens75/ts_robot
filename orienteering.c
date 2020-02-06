@@ -187,16 +187,18 @@ uint8_t read_binary_code()
       not_read = TRUE;
       counter++;
     }
-  else if((values[counter] == 0) && (sensors[RIGHT_OUTHER_SENSOR] < 100))
+   
+   if((values[counter] == 0) && (sensors[RIGHT_OUTHER_SENSOR] < 100))
     {
       not_read = TRUE;
       counter++;
     }
 
-    if((sensors[LEFT_INNER_SENSOR] > 700 ) && (sensors[RIGHT_INNER_SENSOR] > 700 ) )
+    if((sensors[LEFT_INNER_SENSOR] > 700 ) /* && (sensors[RIGHT_INNER_SENSOR] > 700 ) */ )
     {
       run = FALSE;
     }
+
     if (counter > 8)
       run = FALSE;
     } 
@@ -204,8 +206,8 @@ uint8_t read_binary_code()
 follow_line_narrow(sensors);
      } //while
 
-  //for (counter=0; counter < 8; counter++)
-  //  retval = retval + (values[counter] * (uint8_t) pow(counter, 2));
+  for (counter=0; counter < 8; counter++)
+    retval = retval + (values[counter] *  counter /*(uint8_t) pow(counter, 2) */ )  ;
 
   return retval;
 }
@@ -250,7 +252,7 @@ void run_orienteering(uint8_t stop_at_landmark)
     bit_block++;
      set_base_speed(25);
      play_beep();
-      Node_Target = read_binary_code();
+    Node_Target = read_binary_code();
     clear();
     lcd_goto_xy(0,0);
     printf("NT: %d",Node_Target);
